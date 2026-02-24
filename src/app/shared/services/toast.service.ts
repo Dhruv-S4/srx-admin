@@ -33,7 +33,7 @@ export class ToastService {
       autoClose: config.autoClose ?? true,
     };
 
-    this.toasts.push(toast);
+    this.toasts = [...this.toasts, toast];
     this.toastsSubject.next(this.toasts);
 
     if (toast.autoClose) {

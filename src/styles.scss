@@ -1,5 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
-@use 'themes.scss';
+@use "tailwindcss";
+@use "../themes.scss";
+
+
+@layer base {
+  html,
+  body,
+  #root {
+    @apply h-full;
+  }
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
 
 .grecaptcha-badge {
   display: none !important;
