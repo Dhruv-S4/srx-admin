@@ -17,19 +17,9 @@ export class App {
   protected readonly toast = inject(ToastService);
   protected readonly sidebarService = inject(SidebarService);
   protected readonly themeService = inject(ThemeService);
-  
+
   constructor() {
     this.sidebarService.setMobileView(window.innerWidth < 768);
     this.themeService.setTheme(localStorage.getItem('theme') as 'light' | 'dark');
-    this.toast.success('Hello, world!');
-    setTimeout(() => {
-    this.toast.success('Hello, world2!');
-  }, 500);
-  setTimeout(() => {
-    this.toast.success('Hello, world3!');
-  }, 1000);
-  setTimeout(() => {
-    this.toast.success('Hello, world4!');
-  }, 1500);
   }
 }

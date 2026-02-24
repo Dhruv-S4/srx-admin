@@ -1,0 +1,45 @@
+<div class="flex min-h-screen items-center justify-center bg-background p-4 md:p-8">
+    <div class="card max-w-sm space-y-6">
+        <div class="flex flex-col space-y-2 text-center">
+            <h1 class="text-2xl font-semibold tracking-tight text-foreground">Welcome back</h1>
+            <p class="text-sm text-muted-foreground">Enter your email to sign in to your account</p>
+        </div>
+        <form class="space-y-4">
+            <div class="space-y-2">
+                <label for="email"
+                    class="text-sm font-medium leading-none text-foreground peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Email</label>
+                <input id="email" type="email" placeholder="abc@example.com" required
+                    class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm text-foreground shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 transition-colors" />
+            </div>
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <label for="password"
+                        class="text-sm font-medium leading-none text-foreground peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Password</label>
+                    <a href="#" class="text-sm font-medium text-primary hover:underline">Forgot password?</a>
+                </div>
+                <div class="relative">
+                    <input id="password" [type]="showPassword ? 'text' : 'password'" required
+                        class="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 pr-10 text-sm text-foreground shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 transition-colors" />
+                    <button type="button" (click)="togglePasswordVisibility()"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none"
+                        aria-label="Toggle password visibility">
+                        <ng-icon [name]="showPassword ? 'lucideEyeOff' : 'lucideEye'" class="text-lg"></ng-icon>
+                    </button>
+                </div>
+            </div>
+            <button type="submit"
+                class="inline-flex h-10 w-full items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                Sign In
+            </button>
+        </form>
+        <p class="px-8 text-center text-sm text-muted-foreground">
+            By clicking continue, you agree to our <a
+                href="https://www.shiprocket.in/merchant-agreement/?_gl=1*13k5yk4*_gcl_au*MTUyMDUwMjI5LjE3NzE5MTQzMjYuOTEyNDc5NTY5LjE3NzE5MTQzMzIuMTc3MTkxNDMzMg.."
+                class="underline underline-offset-4 hover:text-primary" target="_blank" rel="noopener noreferrer">Terms
+                of Service</a> and <a
+                href="https://www.shiprocket.in/privacy-policy/?_gl=1*13k5yk4*_gcl_au*MTUyMDUwMjI5LjE3NzE5MTQzMjYuOTEyNDc5NTY5LjE3NzE5MTQzMzIuMTc3MTkxNDMzMg.."
+                class="underline underline-offset-4 hover:text-primary" target="_blank"
+                rel="noopener noreferrer">Privacy Policy</a>.
+        </p>
+    </div>
+</div>

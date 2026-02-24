@@ -15,6 +15,10 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .card {
+    @apply bg-card text-card-foreground rounded-xl border border-border p-6 w-full shadow-lg;
+  }
 }
 
 
