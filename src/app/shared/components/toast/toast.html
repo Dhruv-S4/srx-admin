@@ -14,7 +14,7 @@
     @for (toast of toasts; track toast.id) {
         <div class="pointer-events-auto relative overflow-hidden w-full rounded-xl border shadow-lg backdrop-blur-md transition-all hover:shadow-xl"
             [ngClass]="{
-                'bg-white/95 border-gray-100 dark:bg-gray-800/95 dark:border-gray-700': true,
+                'bg-popover border-border': true,
                 'border-l-4 border-l-green-500': toast.type === 'success',
                 'border-l-4 border-l-red-500': toast.type === 'error',
                 'border-l-4 border-l-blue-500': toast.type === 'info',
