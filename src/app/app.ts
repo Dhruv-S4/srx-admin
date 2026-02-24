@@ -1,11 +1,12 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ToastService } from './shared/services/toast.service';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { Toast } from './shared/components/toast/toast';
+import { ToastService } from './shared/services/toast.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Toast],
+  imports: [RouterOutlet, Toast, NgxUiLoaderModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -14,7 +15,6 @@ export class App {
   protected readonly toast = inject(ToastService);
 
   constructor() {
-      console.log("hiiiii")
-      this.toast.success('Hello, world!');
+    this.toast.success('Hello, world!');
   }
 }
