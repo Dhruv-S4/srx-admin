@@ -16,5 +16,14 @@ export class App {
 
   constructor() {
     this.toast.success('Hello, world!');
+    setTimeout(() => {
+    this.toast.success('Hello, world2!');
+  }, 500);
+  setTimeout(() => {
+    this.toast.success('Hello, world3!');
+  }, 1000);
+  setTimeout(() => {
+    this.toast.success('Hello, world4!');
+  }, 1500);
   }
 }
