@@ -1,0 +1,37 @@
+<div class="min-h-screen xl:flex bg-sidebar">
+    <app-sidebar />
+    <div class="flex-1 transition-all duration-300 ease-in-out p-2 h-screen">
+        <div class="w-auto! h-full bg-background rounded-xl border border-sidebar-border flex flex-col overflow-hidden shadow-lg"
+            [ngClass]="{
+            'xl:ml-[250px]': (isExpanded$ | async) || (isHovered$ | async),
+            'xl:ml-[70px]': !(isExpanded$ | async) && !(isHovered$ | async),
+            'ml-0': (isMobileOpen$ | async)
+          }">
+
+            <!-- Header -->
+            <header class="flex h-14 items-center gap-4 border-b px-6 shrink-0 bg-background">
+                <button (click)="toggleSidebar()"
+                    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 w-9">
+                    <ng-icon name="lucidePanelLeft" class="h-4 w-4" />
+                    <span class="sr-only">Toggle Sidebar</span>
+                </button>
+                <div class="ml-auto flex items-center gap-2">
+                    <button (click)="toggleTheme()"
+                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 w-9">
+                        @if ((theme$ | async) === 'dark') {
+                        <ng-icon name="lucideMoon" class="h-4 w-4" />
+                        } @else {
+                        <ng-icon name="lucideSun" class="h-4 w-4" />
+                        }
+                        <span class="sr-only">Toggle theme</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="flex-1 p-6 overflow-y-auto">
+                <router-outlet />
+            </div>
+        </div>
+    </div>
+</div>

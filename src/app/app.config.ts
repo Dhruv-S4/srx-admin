@@ -6,16 +6,15 @@ import { routes } from './app.routes';
 import { HttpRequestInterceptor } from './shared/services/http-request-interceptor.service';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
-  blur: 5,
+  blur: 10,
   delay: 0,
   fastFadeOut: true,
-  fgsColor:
-    localStorage.getItem('theme') === 'dark' ? 'var(--color-brand-500)' : 'var(--color-brand-600)',
+  fgsColor: 'var(--color-primary)',
   fgsPosition: 'center-center',
   fgsSize: 80,
-  fgsType: 'ball-spin-clockwise-fade-rotating',
+  fgsType: 'three-strings',
   masterLoaderId: 'master',
-  overlayColor: 'rgba(0, 0, 0, 0.5)',
+  overlayColor: 'var(--color-loader-overlay)',
   hasProgressBar: false,
   maxTime: -1,
   minTime: 300,

@@ -17,7 +17,7 @@ export class SrUserSessionService {
 
     getUser(): Promise<any> {
         if (!this.userPromise) {
-            this.userPromise = firstValueFrom(this.authService.loginUser({}));
+            this.userPromise = firstValueFrom(this.authService.getUser({}));
         }
         return this.userPromise;
     }

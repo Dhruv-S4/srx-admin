@@ -1,4 +1,6 @@
-<div class="flex min-h-screen items-center justify-center bg-background p-4 md:p-8">
+<div class="flex flex-col min-h-screen items-center justify-center bg-background p-4 md:p-8 gap-6">
+    <app-object-viewer [src]="'shiprocket_logo_svg_light.svg'" [height]="'60px'" alt="ShipRocket" class="dark:hidden" />
+    <app-object-viewer [src]="'shiprocket_logo_svg_dark.svg'" [height]="'60px'" alt="ShipRocket" class="hidden dark:block" />
     <div class="card max-w-sm space-y-6">
         <div class="flex flex-col space-y-2 text-center">
             <h1 class="text-2xl font-semibold tracking-tight text-foreground">Welcome back</h1>

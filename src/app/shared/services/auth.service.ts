@@ -9,6 +9,10 @@ export class AuthService {
     http = inject(HttpService);
 
     loginUser(data: any): Observable<any> {
+        return this.http.post('auth/login', data);
+    }
+
+    getUser(data: any): Observable<any> {
         return this.http.post('auth/login/user', data);
     }
 
