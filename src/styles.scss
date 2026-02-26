@@ -126,8 +126,21 @@
 .sr-uploader__dropzone-inner {
   @apply flex flex-col items-center justify-center gap-3 text-center;
 }
+/* Force icon size and color — ng-icon may not pass Tailwind to inner SVG */
+.sr-uploader__icon {
+  display: inline-flex;
+  width: 10rem;
+  height: 10rem;
+  color: var(--muted-foreground);
+  flex-shrink: 0;
+}
+.sr-uploader__icon svg {
+  width: 100%;
+  height: 100%;
+}
 .sr-uploader__hint {
-  @apply text-sm text-muted-foreground;
+  font-size: 0.9375rem;
+  color: var(--muted-foreground);
 }
 .sr-uploader__file {
   @apply flex items-center gap-2 text-sm text-foreground/80 max-w-full;

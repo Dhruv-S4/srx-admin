@@ -15,6 +15,7 @@
     [attr.aria-label]="'Drop zone for file upload. Accepted file types: ' + acceptedFileTypes + '. Maximum size: ' + maxFileSize + 'MB'"
   >
     <div class="sr-uploader__dropzone-inner">
+      <ng-icon name="lucideCloudUpload" class="sr-uploader__icon" aria-hidden="true" />
       <div class="sr-uploader__hint">Click or drag & drop your file here</div>
 
       @if (selectedFile()) {

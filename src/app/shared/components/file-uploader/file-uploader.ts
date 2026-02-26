@@ -1,12 +1,15 @@
 import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, signal } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideCloudUpload } from '@ng-icons/lucide';
 
 type FileType = string;
 
 @Component({
   selector: 'app-file-uploader',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, NgIcon],
+  providers: [provideIcons({ lucideCloudUpload })],
   templateUrl: './file-uploader.html',
 })
 export class FileUploader implements OnChanges {
