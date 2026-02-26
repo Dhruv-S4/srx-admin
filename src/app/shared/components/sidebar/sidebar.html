@@ -49,8 +49,8 @@
                         <li>
                             <a [routerLink]="subItem.path" (click)="onSubmenuClick()"
                                 class="block rounded-md px-2 py-1.5 text-sm text-muted-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors outline-none ring-sidebar-ring focus-visible:ring-1"
-                                [class.text-sidebar-foreground]="isActive(subItem.path)"
-                                [class.bg-sidebar-accent]="isActive(subItem.path)">
+                                [class.text-primary-foreground]="isActive(subItem.path)"
+                                [class.bg-primary]="isActive(subItem.path)">
                                 {{ subItem.name }}
                             </a>
                         </li>
@@ -62,8 +62,8 @@
                 @if (nav.path) {
                 <a [routerLink]="nav.path" (click)="onSubmenuClick()"
                     class="flex items-center gap-3 rounded-md px-2 py-2 text-sm font-medium hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors relative group outline-none ring-sidebar-ring focus-visible:ring-1"
-                    [class.bg-sidebar-accent]="isActive(nav.path)"
-                    [class.text-sidebar-accent-foreground]="isActive(nav.path)"
+                    [class.bg-primary]="isActive(nav.path)"
+                    [class.text-primary-foreground]="isActive(nav.path)"
                     [title]="!((isExpanded$ | async) || (isHovered$ | async) || (isMobileOpen$ | async)) ? nav.name : ''">
                     <ng-icon [name]="nav.icon" class="size-4 shrink-0" />
                     @if ((isExpanded$ | async) || (isHovered$ | async) || (isMobileOpen$ | async)) {

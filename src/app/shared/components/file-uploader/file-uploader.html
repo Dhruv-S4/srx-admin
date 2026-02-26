@@ -2,7 +2,7 @@
   <header class="mb-2 text-lg font-medium text-foreground">Upload New File</header>
 
   <div
-    class="w-full rounded-xl border-2 border-dashed border-input bg-background p-6 cursor-pointer transition-colors duration-200 hover:border-primary/60 hover:bg-accent/30"
+    class="w-full rounded-xl border-2 border-dashed border-input bg-input/30 hover:bg-input/50 p-6 cursor-pointer transition-colors duration-200 hover:border-primary/60"
     [ngClass]="{ 'border-primary bg-accent/40': isDragging() }" (dragover)="onDragOver($event)"
     (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" tabindex="0" role="button" (click)="browseFiles()"
     (keydown.enter)="browseFiles()" (keydown.space)="browseFiles()"

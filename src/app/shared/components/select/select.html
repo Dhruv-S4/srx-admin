@@ -1,15 +1,16 @@
-<div class="sr-select relative w-full" (click)="$event.stopPropagation()" [style.min-width.px]="requiredWidth()">
+<div class="relative w-full" (click)="$event.stopPropagation()" [style.min-width.px]="requiredWidth()">
   <!-- Trigger -->
   <button
     #triggerButton
     type="button"
-    class="sr-select__trigger"
-    [class.sr-select__trigger--open]="isOpen()"
+    class="relative w-full h-8 py-1 pl-2 pr-8 text-left text-[0.8125rem] leading-5 text-foreground bg-input/30 hover:bg-input/50 border border-input rounded-lg shadow-sm cursor-pointer transition-[border-color,box-shadow] duration-200 outline-none focus:border-input focus:ring-2 focus:ring-ring disabled:bg-muted disabled:cursor-not-allowed"
+    [class.ring-2]="isOpen()"
+    [class.ring-ring/20]="isOpen()"
     [disabled]="disabled"
     (click)="toggleDropdown()"
   >
     <span
-      class="sr-select__trigger-inner min-h-5 flex items-center gap-1 overflow-hidden transition-opacity duration-75"
+      class="min-h-5 flex items-center gap-1 overflow-hidden transition-opacity duration-75"
       [class.opacity-0]="!isLayoutReady()"
     >
       @if (selectedOptions().length === 0) {
@@ -27,11 +28,11 @@
 
       @if (multiple && selectedOptions().length > 0) {
         @for (option of selectedOptions().slice(0, maxDisplayOptions()); track getValue(option)) {
-          <span class="sr-select__chip">
+          <span class="inline-flex items-center gap-0.5 py-0.5 px-1.5 text-[0.6875rem] font-medium text-primary bg-primary/10 border border-primary/20 rounded-md">
             {{ getLabel(option) }}
             <button
               type="button"
-              class="sr-select__chip-remove"
+              class="inline-flex items-center justify-center size-3.5 shrink-0 rounded-full bg-transparent border-0 cursor-pointer transition-colors text-primary/70 hover:bg-primary/20 hover:text-primary outline-none"
               (click)="removeItem($event, option)"
               aria-label="Remove"
             >
@@ -40,13 +41,13 @@
           </span>
         }
         @if (selectedOptions().length > maxDisplayOptions()) {
-          <span class="sr-select__chip-more">
+          <span class="inline-flex items-center py-0.5 px-1.5 text-[0.6875rem] font-medium text-muted-foreground bg-muted border border-border rounded-md">
             +{{ selectedOptions().length - maxDisplayOptions() }} more
           </span>
         }
       }
     </span>
-    <span class="sr-select__chevron pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+    <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
       <ng-icon
         name="lucideChevronDown"
         class="size-4 text-muted-foreground transition-transform duration-200"
@@ -58,22 +59,28 @@
   <!-- Dropdown panel (kept in DOM for leave animation) -->
   @if (isOpen() || isClosing()) {
     <div
-      class="sr-select__panel"
-      [class.sr-select__panel--bottom]="dropdownPosition() === 'bottom'"
-      [class.sr-select__panel--top]="dropdownPosition() === 'top'"
-      [class.sr-select__panel--closing]="isClosing()"
+      class="absolute z-1000 left-0 right-0 max-h-56 overflow-hidden py-1 border border-border rounded-lg shadow-lg bg-popover text-popover-foreground"
+      [class.top-full]="dropdownPosition() === 'bottom'"
+      [class.mt-2]="dropdownPosition() === 'bottom'"
+      [class.origin-top]="dropdownPosition() === 'bottom'"
+      [class.bottom-full]="dropdownPosition() === 'top'"
+      [class.mb-2]="dropdownPosition() === 'top'"
+      [class.origin-bottom]="dropdownPosition() === 'top'"
+      [class.animate-[sr-select-open_0.2s_ease-out_forwards]]="isOpen() && !isClosing()"
+      [class.animate-[sr-select-close_0.15s_ease-in_forwards]]="isClosing() && dropdownPosition() === 'bottom'"
+      [class.animate-[sr-select-close-top_0.15s_ease-in_forwards]]="isClosing() && dropdownPosition() === 'top'"
       (animationend)="onPanelAnimationEnd()"
     >
       @if (searchable) {
-        <div class="sr-select__search-wrap">
+        <div class="sticky top-0 z-10 py-1.5 px-2 bg-popover border-b border-border">
           <div class="relative">
-            <span class="sr-select__search-icon">
+            <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
               <ng-icon name="lucideSearch" class="size-4 text-muted-foreground" />
             </span>
             <input
               #searchInput
               type="text"
-              class="sr-select__search-input"
+              class="block w-full py-1 pl-8 pr-2 text-[0.8125rem] text-foreground bg-background border border-input rounded-md placeholder:text-muted-foreground outline-none focus:ring-2 focus:ring-ring"
               [placeholder]="searchPlaceholder"
               [value]="searchTerm()"
               (input)="updateSearch($any($event.target).value)"
@@ -83,10 +90,10 @@
         </div>
       }
 
-      <ul class="sr-select__list" tabindex="-1" role="listbox">
+      <ul class="max-h-48 overflow-auto p-0.5" tabindex="-1" role="listbox">
         @for (option of filteredOptions(); track getValue(option)) {
           <li
-            class="sr-select__option"
+            class="relative py-1.5 pl-2 pr-8 text-[0.8125rem] text-foreground cursor-default select-none rounded-lg transition-colors hover:bg-accent hover:text-accent-foreground"
             (click)="selectOption(option)"
             role="option"
           >
@@ -100,18 +107,21 @@
               </span>
             }
             @if (isSelected(option)) {
-              <span class="sr-select__option-check">
-                <ng-icon name="lucideCheck" class="size-4 text-primary" />
+              <span class="absolute inset-y-0 right-0 flex items-center pr-2 text-primary">
+                <ng-icon name="lucideCheck" class="size-4" />
               </span>
             }
           </li>
         } @empty {
-          <li class="sr-select__empty">No results found.</li>
+          <li class="py-2 text-[0.8125rem] text-muted-foreground text-center">No results found.</li>
         }
       </ul>
 
       @if (multiple && selectedOptions().length > 0) {
-        <div class="sr-select__clear" (click)="clearSelection($event)">
+        <div
+          class="py-1.5 px-2 border-t border-border cursor-pointer transition-colors bg-muted/30 hover:bg-muted/50"
+          (click)="clearSelection($event)"
+        >
           <span class="text-xs font-medium text-muted-foreground">Clear selection</span>
         </div>
       }

@@ -41,7 +41,6 @@ import {
     }),
   ],
   templateUrl: './select.html',
-  styleUrl: './select.scss',
 })
 export class Select implements ControlValueAccessor {
   private readonly elementRef = inject(ElementRef);
