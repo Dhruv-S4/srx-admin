@@ -19,4 +19,9 @@ export const allRoutes: Routes = [
         loadComponent: () =>
             import('../../features/courier-rate-card/courier-rate-card').then((c) => c.CourierRateCard),
     },
+    {
+        path: 'ddp-charges',
+        loadComponent: () =>
+            import('../../features/ddp-charges/ddp-charges').then((c) => c.DdpCharges),
+    },
 ];
