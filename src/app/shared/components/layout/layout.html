@@ -9,12 +9,44 @@
           }">
 
             <!-- Header -->
-            <header class="flex h-14 items-center gap-4 border-b px-6 shrink-0 bg-background">
+            <header class="flex h-14 items-center gap-4 border-b border-border px-6 shrink-0 bg-background">
                 <button (click)="toggleSidebar()"
                     class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 w-9">
                     <ng-icon name="lucidePanelLeft" class="h-4 w-4" />
                     <span class="sr-only">Toggle Sidebar</span>
                 </button>
+
+                <!-- Search bar (visible from xl) -->
+                <div #searchContainer class="relative hidden xl:block flex-1 max-w-md">
+                    <form class="w-full" (submit)="$event.preventDefault()">
+                        <div class="relative">
+                            <span class="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none text-muted-foreground">
+                                <ng-icon name="lucideSearch" class="h-4 w-4 block" />
+                            </span>
+                            <input #searchInput type="text" placeholder="Search ICRM"
+                                (focus)="loadSidebarData()"
+                                (keyup)="filterMenu($event)"
+                                (keydown.enter)="$event.preventDefault()"
+                                class="w-full h-9 rounded-md border border-input bg-background pl-10 pr-20 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background" />
+                            <kbd class="absolute right-2.5 top-1/2 -translate-y-1/2 inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1.5 py-1 text-xs font-medium text-muted-foreground">
+                                <span>⌘</span><span>K</span>
+                            </kbd>
+                            @if (isSearchMenuOpen) {
+                            <div class="absolute left-0 right-0 top-full z-50 mt-1.5 flex max-h-[300px] flex-col overflow-y-auto rounded-xl border border-border bg-popover text-popover-foreground shadow-md">
+                                <ul class="flex flex-col gap-0.5 p-1.5">
+                                    @for (item of filteredMenuItems; track item.name) {
+                                    <li (click)="navigateToItem(item)"
+                                        class="cursor-pointer rounded-md px-3 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground">
+                                        {{ item.name }}
+                                    </li>
+                                    }
+                                </ul>
+                            </div>
+                            }
+                        </div>
+                    </form>
+                </div>
+
                 <div class="ml-auto flex items-center gap-2">
                     <button (click)="toggleTheme()"
                         class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 w-9">
