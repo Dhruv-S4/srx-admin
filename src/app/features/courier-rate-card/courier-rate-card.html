@@ -29,9 +29,9 @@
     (pageChange)="onPageChange($event)"
   >
     <ng-template #rowTemplate let-row>
-      <td class="py-3 align-middle whitespace-nowrap overflow-hidden text-ellipsis pl-4">{{ row.fileId }}</td>
+      <td class="py-3.5 align-middle whitespace-nowrap overflow-hidden text-ellipsis pl-6">{{ row.fileId }}</td>
 
-      <td class="py-3 align-middle whitespace-nowrap overflow-hidden text-ellipsis">
+      <td class="py-3.5 align-middle whitespace-nowrap overflow-hidden text-ellipsis">
         @if (row.uploadedFileUrl) {
           <button
             type="button"
@@ -47,7 +47,7 @@
         }
       </td>
 
-      <td class="py-3 align-middle whitespace-nowrap overflow-hidden text-ellipsis">
+      <td class="py-3.5 align-middle whitespace-nowrap overflow-hidden text-ellipsis">
         @if (row.errorFileUrl) {
           <button
             type="button"
@@ -63,12 +63,12 @@
         }
       </td>
 
-      <td class="py-3 align-middle whitespace-nowrap overflow-hidden text-ellipsis">{{ row.successCount }}</td>
-      <td class="py-3 align-middle whitespace-nowrap overflow-hidden text-ellipsis">{{ row.failedCount }}</td>
-      <td class="py-3 align-middle whitespace-nowrap overflow-hidden text-ellipsis">{{ row.uploadedBy }}</td>
-      <td class="py-3 align-middle whitespace-nowrap overflow-hidden text-ellipsis">{{ row.date }}</td>
+      <td class="py-3.5 align-middle whitespace-nowrap overflow-hidden text-ellipsis">{{ row.successCount }}</td>
+      <td class="py-3.5 align-middle whitespace-nowrap overflow-hidden text-ellipsis">{{ row.failedCount }}</td>
+      <td class="py-3.5 align-middle whitespace-nowrap overflow-hidden text-ellipsis">{{ row.uploadedBy }}</td>
+      <td class="py-3.5 align-middle whitespace-nowrap overflow-hidden text-ellipsis">{{ row.date }}</td>
 
-      <td class="py-3 align-middle whitespace-nowrap overflow-hidden text-ellipsis pr-4">
+      <td class="py-3.5 align-middle whitespace-nowrap overflow-hidden text-ellipsis pr-6">
         <span
           class="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium"
           [ngClass]="{
