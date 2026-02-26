@@ -1,0 +1,100 @@
+<div class="sr-table">
+  <div class="sr-table__scroll">
+    <table class="sr-table__table">
+      <thead>
+        <tr class="sr-table__head-row">
+          @for (header of headers; track $index) {
+            <th class="sr-table__th" [title]="header.tooltip || header.name">
+              <div class="sr-table__th-inner" [ngClass]="{ 'sr-table__th-has-tooltip': !!header.tooltip }">
+                <span>{{ header.name }}</span>
+                @if (header.tooltip) {
+                  <span class="sr-table__tooltip-dot" aria-hidden="true"></span>
+                }
+              </div>
+            </th>
+          }
+        </tr>
+      </thead>
+
+      @if (data && data.length > 0) {
+        <tbody>
+          @for (row of data; track $index; let i = $index) {
+            <tr class="sr-table__row">
+              <ng-container *ngTemplateOutlet="rowTemplate; context: { $implicit: row, index: i }"></ng-container>
+            </tr>
+          }
+        </tbody>
+      } @else {
+        <tbody>
+          <tr class="sr-table__row">
+            <td class="sr-table__empty" attr.colspan="{{ headers.length }}">
+              <div class="sr-table__empty-inner">
+                <div class="sr-table__empty-title">No data</div>
+                <div class="sr-table__empty-subtitle">There are no uploads to show yet.</div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      }
+    </table>
+  </div>
+
+  @if (paginationRequired) {
+    <div class="sr-table__pagination">
+      <div class="sr-table__page-size">
+        <span class="sr-table__pagination-label">Items per page</span>
+        <select
+          class="sr-table__select"
+          [value]="rowsPerPage()"
+          (change)="changeRowsPerPage(+$any($event.target).value)"
+        >
+          @for (opt of pageSizeOptions; track opt) {
+            <option [value]="opt">{{ opt }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="sr-table__pager">
+        <button
+          type="button"
+          class="sr-table__pager-arrow"
+          [disabled]="currentPage() === 1"
+          (click)="previousPage()"
+          title="Previous"
+        >
+          <ng-icon name="lucideChevronLeft" class="size-5 shrink-0" />
+          <span>Previous</span>
+        </button>
+
+        <div class="sr-table__pages">
+          @for (p of displayedPages(); track $index) {
+            @if (p === '...') {
+              <span class="sr-table__ellipsis">…</span>
+            } @else {
+              <button
+                type="button"
+                class="sr-table__page"
+                [ngClass]="{ 'sr-table__page--active': currentPage() === p }"
+                (click)="goToPage(p)"
+              >
+                {{ p }}
+              </button>
+            }
+          }
+        </div>
+
+        <button
+          type="button"
+          class="sr-table__pager-arrow"
+          [disabled]="currentPage() >= totalPages"
+          (click)="nextPage()"
+          title="Next"
+        >
+          <span>Next</span>
+          <ng-icon name="lucideChevronRight" class="size-5 shrink-0" />
+        </button>
+      </div>
+    </div>
+  }
+</div>
+

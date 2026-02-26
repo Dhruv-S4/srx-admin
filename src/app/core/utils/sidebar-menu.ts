@@ -6,7 +6,7 @@ export const sidebarMenu: NavItem[] = [
         key: 'srx',
         icon: 'lucideGlobe',
         subItems: [
-            { name: 'Courier Rate Card', path: '/srx-courier-rate-card', key: 'cost_center' },
+            { name: 'Courier Rate Card', path: '/courier-rate-card', key: 'cost_center' },
             { name: 'International KYC', path: '/international-kyc', key: 'international_kyc' },
             // { name: 'Courier Management', path: '/srx-courier-management', key: 'courier_management' },
             {

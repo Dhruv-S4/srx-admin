@@ -29,3 +29,126 @@
 .page-title {
   @apply text-2xl font-semibold text-foreground mb-6;
 }
+
+/* Reusable table + file uploader (shared styles only) */
+.sr-table {
+  @apply rounded-xl border border-border bg-background;
+}
+.sr-table__scroll {
+  @apply overflow-x-auto;
+}
+.sr-table__table {
+  @apply min-w-full;
+}
+.sr-table__head-row {
+  @apply border-b border-border bg-muted/40;
+}
+.sr-table__th {
+  @apply text-left text-xs font-medium text-muted-foreground py-4 first-of-type:pl-4 last-of-type:pr-4;
+}
+.sr-table__th-inner {
+  @apply inline-flex items-center gap-2;
+}
+.sr-table__tooltip-dot {
+  @apply inline-block size-1.5 rounded-full bg-muted-foreground/50;
+}
+.sr-table__row {
+  @apply border-b border-border text-sm hover:bg-accent/40;
+}
+.sr-table__empty {
+  @apply py-10 text-center;
+}
+.sr-table__empty-inner {
+  @apply flex flex-col items-center justify-center gap-1 text-muted-foreground;
+}
+.sr-table__empty-title {
+  @apply text-base font-medium text-foreground;
+}
+.sr-table__empty-subtitle {
+  @apply text-sm;
+}
+.sr-table__pagination {
+  @apply flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between p-4;
+}
+.sr-table__page-size {
+  @apply inline-flex items-center gap-2;
+}
+.sr-table__pagination-label {
+  @apply text-sm font-medium text-foreground;
+}
+.sr-table__select {
+  @apply h-9 rounded-md border border-input bg-background px-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring;
+}
+.sr-table__pager {
+  @apply flex flex-wrap items-center gap-2;
+}
+.sr-table__pages {
+  @apply flex flex-wrap items-center gap-1;
+}
+.sr-table__pager-btn {
+  @apply inline-flex items-center justify-center rounded-md border border-input bg-background px-3 py-1.5 text-sm font-medium text-foreground hover:bg-accent disabled:opacity-50 disabled:cursor-not-allowed;
+}
+.sr-table__pager-arrow {
+  @apply inline-flex items-center justify-center gap-1.5 rounded-md px-2 py-1.5 text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground disabled:opacity-50 disabled:cursor-not-allowed;
+}
+.sr-table__page {
+  @apply inline-flex items-center justify-center rounded-md px-2 py-1.5 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground;
+}
+.sr-table__page--active {
+  @apply bg-accent text-foreground;
+}
+.sr-table__ellipsis {
+  @apply px-2 text-muted-foreground;
+}
+
+.sr-uploader {
+  @apply w-full max-w-full rounded-xl;
+}
+.sr-uploader__title {
+  @apply mb-2 text-lg font-medium text-foreground;
+}
+.sr-uploader__dropzone {
+  @apply w-full rounded-xl border-2 border-dashed border-input bg-background p-6 transition-colors duration-200 hover:border-primary/60 hover:bg-accent/30 cursor-pointer;
+}
+.sr-uploader__dropzone--drag {
+  @apply border-primary bg-accent/40;
+}
+.sr-uploader__dropzone-inner {
+  @apply flex flex-col items-center justify-center gap-3 text-center;
+}
+.sr-uploader__hint {
+  @apply text-sm text-muted-foreground;
+}
+.sr-uploader__file {
+  @apply flex items-center gap-2 text-sm text-foreground/80 max-w-full;
+}
+.sr-uploader__file-label {
+  @apply shrink-0 text-muted-foreground;
+}
+.sr-uploader__file-name {
+  @apply truncate max-w-[420px];
+}
+.sr-uploader__error {
+  @apply text-sm text-destructive;
+}
+.sr-uploader__footer {
+  @apply mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between;
+}
+.sr-uploader__left {
+  @apply flex-1;
+}
+.sr-uploader__link {
+  @apply inline-flex items-center text-sm font-medium text-primary underline underline-offset-4 hover:text-primary/80;
+}
+.sr-uploader__actions {
+  @apply flex items-center gap-3;
+}
+.sr-uploader__btn {
+  @apply inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+}
+.sr-uploader__btn--secondary {
+  @apply border border-input bg-background hover:bg-accent text-foreground;
+}
+.sr-uploader__btn--primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90;
+}

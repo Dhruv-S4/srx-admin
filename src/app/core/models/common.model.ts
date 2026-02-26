@@ -12,3 +12,8 @@ export interface TabOption {
   /** Icon name for ng-icon when tab is inactive. Parent must provide the icon. */
   inActiveIcon?: string;
 }
+
+export interface TableHeader {
+  name: string;
+  tooltip?: string;
+}

@@ -1,0 +1,55 @@
+<section class="sr-uploader" role="region" aria-label="File upload">
+  <header class="sr-uploader__title">Upload New File</header>
+
+  <div
+    class="sr-uploader__dropzone"
+    [ngClass]="{ 'sr-uploader__dropzone--drag': isDragging() }"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)"
+    tabindex="0"
+    role="button"
+    (click)="browseFiles()"
+    (keydown.enter)="browseFiles()"
+    (keydown.space)="browseFiles()"
+    [attr.aria-label]="'Drop zone for file upload. Accepted file types: ' + acceptedFileTypes + '. Maximum size: ' + maxFileSize + 'MB'"
+  >
+    <div class="sr-uploader__dropzone-inner">
+      <div class="sr-uploader__hint">Click or drag & drop your file here</div>
+
+      @if (selectedFile()) {
+        <div class="sr-uploader__file" role="status">
+          <span class="sr-uploader__file-label">Selected:</span>
+          <span class="sr-uploader__file-name" [title]="selectedFile()?.name">{{ selectedFile()?.name }}</span>
+        </div>
+      }
+
+      @if (errorMessage()) {
+        <div class="sr-uploader__error" role="alert">{{ errorMessage() }}</div>
+      }
+    </div>
+  </div>
+
+  <footer class="sr-uploader__footer">
+    <div class="sr-uploader__left">
+      @if (sampleFileUrl) {
+        <button type="button" class="sr-uploader__link" (click)="downloadSampleFile()">Download sample file</button>
+      }
+    </div>
+
+    <div class="sr-uploader__actions" role="group" aria-label="File upload actions">
+      <button type="button" class="sr-uploader__btn sr-uploader__btn--secondary" [disabled]="!selectedFile()" (click)="onCancel()">
+        Cancel
+      </button>
+      <button
+        type="button"
+        class="sr-uploader__btn sr-uploader__btn--primary"
+        [disabled]="!selectedFile() || uploadDisabled"
+        (click)="onUpload()"
+      >
+        Upload
+      </button>
+    </div>
+  </footer>
+</section>
+
