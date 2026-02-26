@@ -73,7 +73,6 @@ export class Select implements ControlValueAccessor {
   @Output() selectionChange = new EventEmitter<any>();
 
   readonly isOpen = signal(false);
-  readonly isClosing = signal(false);
   readonly searchTerm = signal('');
   readonly maxDisplayOptions = signal(0);
   readonly isLayoutReady = signal(false);
@@ -148,7 +147,7 @@ export class Select implements ControlValueAccessor {
   }
 
   toggleDropdown(): void {
-    if (this.disabled || this.isClosing()) return;
+    if (this.disabled) return;
     if (!this.isOpen()) {
       this.calculatePosition();
     }
@@ -185,7 +184,7 @@ export class Select implements ControlValueAccessor {
       this.writeValue(val);
       this.onChange(val);
       this.selectionChange.emit(val);
-      this.closeWithAnimation();
+      this.close();
     }
   }
 
@@ -303,23 +302,17 @@ export class Select implements ControlValueAccessor {
     this.disabled = isDisabled;
   }
 
-  onPanelAnimationEnd(): void {
-    if (this.isClosing()) {
-      this.isOpen.set(false);
-      this.isClosing.set(false);
-    }
-  }
-
-  closeWithAnimation(): void {
+  close(): void {
     if (!this.isOpen()) return;
-    this.isClosing.set(true);
+    this.isOpen.set(false);
     this.onTouched();
   }
 
   @HostListener('document:click', ['$event'])
   onClickOutside(event: Event): void {
-    if (!this.elementRef.nativeElement.contains(event.target)) {
-      if (this.isOpen()) this.closeWithAnimation();
-    }
+    const target = event.target as Node;
+    const host = this.elementRef.nativeElement;
+    if (host.contains(target)) return;
+    if (this.isOpen()) this.close();
   }
 }
