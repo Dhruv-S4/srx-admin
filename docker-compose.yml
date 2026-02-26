@@ -1,0 +1,8 @@
+services:
+  srx-admin:
+    build: .
+    image: srx-admin:latest
+    container_name: srx_admin
+    command: bash -c "npm install && ng build"
+    volumes:
+      - .:/var/www/app
