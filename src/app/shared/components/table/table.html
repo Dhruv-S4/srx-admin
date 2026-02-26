@@ -43,15 +43,13 @@
     <div class="sr-table__pagination">
       <div class="sr-table__page-size">
         <span class="sr-table__pagination-label">Items per page</span>
-        <select
-          class="sr-table__select"
+        <app-select
+          class="sr-table__select-wrapper"
+          [options]="pageSizeSelectOptions()"
           [value]="rowsPerPage()"
-          (change)="changeRowsPerPage(+$any($event.target).value)"
-        >
-          @for (opt of pageSizeOptions; track opt) {
-            <option [value]="opt">{{ opt }}</option>
-          }
-        </select>
+          placeholder="Items per page"
+          (selectionChange)="changeRowsPerPage($event)"
+        />
       </div>
 
       <div class="sr-table__pager">

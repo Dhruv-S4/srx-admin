@@ -1,13 +1,14 @@
 import { NgTemplateOutlet, NgClass } from '@angular/common';
-import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef, signal } from '@angular/core';
+import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef, signal, computed } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft, lucideChevronRight } from '@ng-icons/lucide';
 import { TableHeader } from '../../../core/models/common.model';
+import { Select } from '../select/select';
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [NgTemplateOutlet, NgClass, NgIcon],
+  imports: [NgTemplateOutlet, NgClass, NgIcon, Select],
   providers: [provideIcons({ lucideChevronLeft, lucideChevronRight })],
   templateUrl: './table.html',
 })
@@ -18,6 +19,11 @@ export class Table {
   @Input() totalRecords = 0;
   @Input() pageSizeOptions: number[] = [15, 30, 60, 100];
   @Input() defaultPageSize = 15;
+
+  /** Options for the page size app-select (label + value) */
+  readonly pageSizeSelectOptions = computed(() =>
+    this.pageSizeOptions.map((n) => ({ label: String(n), value: n }))
+  );
 
   @Output() pageChange = new EventEmitter<{ page: number; rows: number }>();
 

@@ -32,10 +32,10 @@
 
 /* Reusable table + file uploader (shared styles only) */
 .sr-table {
-  @apply rounded-2xl border border-border bg-card shadow-sm overflow-hidden;
+  @apply rounded-2xl border border-border bg-card shadow-sm;
 }
 .sr-table__scroll {
-  @apply overflow-x-auto -mb-px;
+  @apply overflow-x-auto -mb-px rounded-t-2xl overflow-hidden;
 }
 .sr-table__table {
   @apply min-w-full border-collapse;
@@ -75,7 +75,7 @@
   @apply text-sm leading-relaxed;
 }
 .sr-table__pagination {
-  @apply flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between px-5 py-4 border-t border-border bg-muted/20;
+  @apply flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between px-5 py-4 border-t border-border bg-muted/20 rounded-b-2xl overflow-visible;
 }
 .sr-table__page-size {
   @apply inline-flex items-center gap-2.5;
@@ -85,6 +85,9 @@
 }
 .sr-table__select {
   @apply h-9 min-w-[4.5rem] rounded-lg border border-input bg-background pl-3 pr-8 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-0 transition-shadow;
+}
+.sr-table__select-wrapper {
+  @apply min-w-[4.5rem] w-[5.5rem];
 }
 .sr-table__pager {
   @apply flex flex-wrap items-center gap-1.5;

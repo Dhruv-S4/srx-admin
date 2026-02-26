@@ -1,0 +1,120 @@
+<div class="sr-select relative w-full" (click)="$event.stopPropagation()" [style.min-width.px]="requiredWidth()">
+  <!-- Trigger -->
+  <button
+    #triggerButton
+    type="button"
+    class="sr-select__trigger"
+    [class.sr-select__trigger--open]="isOpen()"
+    [disabled]="disabled"
+    (click)="toggleDropdown()"
+  >
+    <span
+      class="sr-select__trigger-inner min-h-5 flex items-center gap-1 overflow-hidden transition-opacity duration-75"
+      [class.opacity-0]="!isLayoutReady()"
+    >
+      @if (selectedOptions().length === 0) {
+        <span class="text-muted-foreground block truncate">{{ placeholder }}</span>
+      }
+
+      @if (!multiple && selectedOptions().length > 0) {
+        @let option = selectedOptions()[0];
+        @if (selectedTemplate) {
+          <ng-container *ngTemplateOutlet="selectedTemplate; context: { $implicit: option }" />
+        } @else {
+          <span class="block truncate text-foreground">{{ getLabel(option) }}</span>
+        }
+      }
+
+      @if (multiple && selectedOptions().length > 0) {
+        @for (option of selectedOptions().slice(0, maxDisplayOptions()); track getValue(option)) {
+          <span class="sr-select__chip">
+            {{ getLabel(option) }}
+            <button
+              type="button"
+              class="sr-select__chip-remove"
+              (click)="removeItem($event, option)"
+              aria-label="Remove"
+            >
+              <ng-icon name="lucideX" class="size-2.5" />
+            </button>
+          </span>
+        }
+        @if (selectedOptions().length > maxDisplayOptions()) {
+          <span class="sr-select__chip-more">
+            +{{ selectedOptions().length - maxDisplayOptions() }} more
+          </span>
+        }
+      }
+    </span>
+    <span class="sr-select__chevron pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+      <ng-icon
+        name="lucideChevronDown"
+        class="size-4 text-muted-foreground transition-transform duration-200"
+        [class.rotate-180]="isOpen()"
+      />
+    </span>
+  </button>
+
+  <!-- Dropdown panel (kept in DOM for leave animation) -->
+  @if (isOpen() || isClosing()) {
+    <div
+      class="sr-select__panel"
+      [class.sr-select__panel--bottom]="dropdownPosition() === 'bottom'"
+      [class.sr-select__panel--top]="dropdownPosition() === 'top'"
+      [class.sr-select__panel--closing]="isClosing()"
+      (animationend)="onPanelAnimationEnd()"
+    >
+      @if (searchable) {
+        <div class="sr-select__search-wrap">
+          <div class="relative">
+            <span class="sr-select__search-icon">
+              <ng-icon name="lucideSearch" class="size-4 text-muted-foreground" />
+            </span>
+            <input
+              #searchInput
+              type="text"
+              class="sr-select__search-input"
+              [placeholder]="searchPlaceholder"
+              [value]="searchTerm()"
+              (input)="updateSearch($any($event.target).value)"
+              (click)="$event.stopPropagation()"
+            />
+          </div>
+        </div>
+      }
+
+      <ul class="sr-select__list" tabindex="-1" role="listbox">
+        @for (option of filteredOptions(); track getValue(option)) {
+          <li
+            class="sr-select__option"
+            (click)="selectOption(option)"
+            role="option"
+          >
+            @if (optionTemplate) {
+              <ng-container
+                *ngTemplateOutlet="optionTemplate; context: { $implicit: option, selected: isSelected(option) }"
+              />
+            } @else {
+              <span class="block whitespace-nowrap">
+                {{ getLabel(option) }}
+              </span>
+            }
+            @if (isSelected(option)) {
+              <span class="sr-select__option-check">
+                <ng-icon name="lucideCheck" class="size-4 text-primary" />
+              </span>
+            }
+          </li>
+        } @empty {
+          <li class="sr-select__empty">No results found.</li>
+        }
+      </ul>
+
+      @if (multiple && selectedOptions().length > 0) {
+        <div class="sr-select__clear" (click)="clearSelection($event)">
+          <span class="text-xs font-medium text-muted-foreground">Clear selection</span>
+        </div>
+      }
+    </div>
+  }
+</div>
