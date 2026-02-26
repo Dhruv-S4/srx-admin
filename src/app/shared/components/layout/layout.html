@@ -3,8 +3,8 @@
     <div class="flex-1 transition-all duration-300 ease-in-out p-2 h-screen">
         <div class="w-auto! h-full bg-background rounded-xl border border-sidebar-border flex flex-col overflow-hidden shadow-lg"
             [ngClass]="{
-            'xl:ml-[250px]': (isExpanded$ | async) || (isHovered$ | async),
-            'xl:ml-[70px]': !(isExpanded$ | async) && !(isHovered$ | async),
+            'xl:ml-[250px]': (isExpanded$ | async),
+            'xl:ml-0': !(isExpanded$ | async),
             'ml-0': (isMobileOpen$ | async)
           }">
 

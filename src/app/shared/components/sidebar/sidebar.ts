@@ -15,6 +15,7 @@ import { sidebarMenu } from '../../../core/utils/sidebar-menu';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { ObjectViewer } from '../object-viewer/object-viewer';
 import { lucideChevronDown, lucideGlobe } from '@ng-icons/lucide';
+import { USER_DATA } from '../../../core/models/common.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -32,6 +33,7 @@ export class Sidebar {
   navItems: NavItem[] = [];
   openSubmenu: string | null | number = null;
   subMenuHeights: { [key: string]: number } = {};
+  useDetails = USER_DATA;
   @ViewChildren('subMenu') subMenuRefs!: QueryList<ElementRef>;
 
   readonly isExpanded$;
@@ -182,5 +184,9 @@ export class Sidebar {
         }
       })
       .unsubscribe();
+  }
+
+  onUserProfileClick() {
+    this.router.navigate(['/profile']);
   }
 }

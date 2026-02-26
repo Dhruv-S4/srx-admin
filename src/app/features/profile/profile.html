@@ -1,0 +1,54 @@
+<div class="p-6">
+    <div class="page-title">Profile</div>
+    <div class="card">
+        <!-- Header -->
+        <div class="flex items-center gap-4">
+            <div
+                class="h-12 w-12 rounded-full bg-secondary flex items-center justify-center text-sm font-medium text-muted-foreground">
+                {{ getInitials() }}
+            </div>
+            <h1 class="text-lg font-semibold text-foreground">
+                {{ userData?.first_name }} {{ userData?.last_name }}
+            </h1>
+        </div>
+
+        <!-- Divider -->
+        <hr class="my-6 border-border" />
+
+        <!-- Personal Information -->
+        <h2 class="text-lg font-semibold text-foreground mb-6">Personal Information</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8">
+            <!-- First Name -->
+            <div class="flex flex-col gap-1.5">
+                <label class="text-sm font-medium text-muted-foreground">First Name</label>
+                <div class="text-sm font-semibold text-foreground">{{ userData?.first_name || '-' }}</div>
+            </div>
+
+            <!-- Last Name -->
+            <div class="flex flex-col gap-1.5">
+                <label class="text-sm font-medium text-muted-foreground">Last Name</label>
+                <div class="text-sm font-semibold text-foreground">{{ userData?.last_name || '-' }}</div>
+            </div>
+
+            <!-- Email -->
+            <div class="flex flex-col gap-1.5">
+                <label class="text-sm font-medium text-muted-foreground">Email address</label>
+                <div class="text-sm font-semibold text-foreground">{{ userData?.email || '-' }}</div>
+            </div>
+
+            <!-- Phone -->
+            <div class="flex flex-col gap-1.5">
+                <label class="text-sm font-medium text-muted-foreground">Phone</label>
+                <div class="text-sm font-semibold text-foreground">{{ userData?.mobile || userData?.phone || '-' }}
+                </div>
+            </div>
+
+            <!-- Roles -->
+            <div class="flex flex-col gap-1.5 md:col-span-2">
+                <label class="text-sm font-medium text-muted-foreground">Roles</label>
+                <div class="text-sm font-semibold text-foreground">{{ roles }}</div>
+            </div>
+        </div>
+    </div>
+</div>

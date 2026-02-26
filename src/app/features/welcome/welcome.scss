@@ -1,0 +1,61 @@
+.welcome-bg .shape {
+  will-change: transform;
+}
+
+@keyframes wl-float-1 {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  20% { transform: translate(60px, -80px) rotate(15deg); }
+  40% { transform: translate(-40px, -140px) rotate(-10deg); }
+  60% { transform: translate(-90px, -60px) rotate(20deg); }
+  80% { transform: translate(30px, -100px) rotate(-5deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes wl-float-2 {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-70px, 60px) rotate(-15deg); }
+  50% { transform: translate(50px, 110px) rotate(25deg); }
+  75% { transform: translate(80px, -30px) rotate(-8deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes wl-float-3 {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(90px, -70px) rotate(20deg); }
+  66% { transform: translate(-60px, 80px) rotate(-15deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes wl-float-diamond {
+  0% { transform: rotate(45deg) translate(0, 0); }
+  25% { transform: rotate(65deg) translate(40px, -60px); }
+  50% { transform: rotate(30deg) translate(-50px, -90px); }
+  75% { transform: rotate(55deg) translate(-20px, -30px); }
+  100% { transform: rotate(45deg) translate(0, 0); }
+}
+
+@keyframes wl-drift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(120px, -50px) rotate(12deg); }
+  50% { transform: translate(60px, -120px) rotate(-8deg); }
+  75% { transform: translate(-40px, -60px) rotate(15deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes wl-orbit {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  25% { transform: translate(80px, -80px) rotate(90deg) scale(1.1); }
+  50% { transform: translate(0, -120px) rotate(180deg) scale(1); }
+  75% { transform: translate(-80px, -80px) rotate(270deg) scale(0.9); }
+  100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+}
+
+@keyframes wl-glow {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.6; }
+}
+
+@keyframes wl-fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

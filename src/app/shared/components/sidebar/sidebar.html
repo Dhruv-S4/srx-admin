@@ -1,29 +1,23 @@
 <aside
-    class="fixed flex flex-col top-0 h-screen transition-all duration-300 ease-in-out z-50 bg-sidebar text-sidebar-foreground"
+    class="fixed flex flex-col top-0 h-screen transition-all duration-300 ease-in-out z-50 bg-sidebar text-sidebar-foreground overflow-hidden"
     [ngClass]="{
-    'w-[250px]': (isExpanded$ | async) || (isMobileOpen$ | async) || (isHovered$ | async),
-    'w-[70px]': !((isExpanded$ | async) || (isMobileOpen$ | async) || (isHovered$ | async)),
-    'translate-x-0 left-0': (isExpanded$ | async) || (isMobileOpen$ | async) || (isHovered$ | async),
+    'w-[250px]': (isExpanded$ | async) || (isMobileOpen$ | async),
+    'w-0': !((isExpanded$ | async) || (isMobileOpen$ | async)),
+    'translate-x-0 left-0': (isExpanded$ | async) || (isMobileOpen$ | async),
     '-translate-x-full lg:translate-x-0': !(isMobileOpen$ | async)
-  }" (mouseenter)="onSidebarMouseEnter()" (mouseleave)="sidebarService.setHovered(false)">
+  }">
 
     <!-- Header / Logo -->
     <div class="h-14 flex items-center px-6" [ngClass]="{
-      'justify-center': !((isExpanded$ | async) || (isHovered$ | async)),
-      'justify-start': (isExpanded$ | async) || (isHovered$ | async)
+      'justify-center': !((isExpanded$ | async)),
+      'justify-start': (isExpanded$ | async)
     }">
         <a routerLink="/" class="flex items-center gap-2 font-semibold">
-            @if ((isExpanded$ | async) || (isHovered$ | async) || (isMobileOpen$ | async)) {
             <app-object-viewer [src]="'shiprocket_logo_svg_light.svg'" [height]="'32px'" alt="ShipRocket"
                 class="dark:hidden" />
             <app-object-viewer [src]="'shiprocket_logo_svg_dark.svg'" [height]="'32px'" alt="ShipRocket"
                 class="hidden dark:block" />
-            } @else {
-            <app-object-viewer [src]="'shiprocket-logo-small.svg'" [height]="'32px'" alt="ShipRocket"
-                class="dark:hidden" />
-            <app-object-viewer [src]="'shiprocket-logo-small_dark.svg'" [height]="'32px'" alt="ShipRocket"
-                class="hidden dark:block" />
-            }
+
         </a>
     </div>
 
@@ -87,20 +81,18 @@
     </div>
 
     <!-- User Profile Footer -->
-    <div class="mt-auto p-6">
+    <div class="mt-auto p-6 cursor-pointer" (click)="onUserProfileClick()">
         <div class="flex items-center gap-3" [ngClass]="{
             'justify-center': !((isExpanded$ | async) || (isHovered$ | async)),
             'justify-start': (isExpanded$ | async) || (isHovered$ | async)
         }">
-            <div class="h-9 w-9 rounded-full bg-sidebar-accent flex items-center justify-center shrink-0">
-                <span class="text-sm font-medium">CN</span>
+            <div class="h-9 w-9 rounded-full bg-background flex items-center justify-center shrink-0">
+                <span class="text-sm font-medium">{{useDetails.first_name.charAt(0)}}{{useDetails.last_name.charAt(0)}}</span>
             </div>
-            @if ((isExpanded$ | async) || (isHovered$ | async) || (isMobileOpen$ | async)) {
             <div class="flex flex-col min-w-0">
-                <span class="text-sm font-medium truncate">shadcn</span>
-                <span class="text-xs text-muted-foreground truncate">m@example.com</span>
+                <span class="text-sm font-medium truncate">{{useDetails.first_name}} {{useDetails.last_name}}</span>
+                <span class="text-xs text-muted-foreground truncate">{{useDetails.email}}</span>
             </div>
-            }
         </div>
     </div>
 </aside>
