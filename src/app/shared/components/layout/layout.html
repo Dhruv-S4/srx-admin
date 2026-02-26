@@ -11,7 +11,7 @@
             <!-- Header -->
             <header class="flex h-14 items-center gap-4 border-b border-border px-6 shrink-0 bg-background">
                 <button (click)="toggleSidebar()"
-                    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 w-9">
+                    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 w-9 cursor-pointer">
                     <ng-icon name="lucidePanelLeft" class="h-4 w-4" />
                     <span class="sr-only">Toggle Sidebar</span>
                 </button>
@@ -49,7 +49,7 @@
 
                 <div class="ml-auto flex items-center gap-2">
                     <button (click)="toggleTheme()"
-                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 w-9">
+                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 w-9 cursor-pointer">
                         @if ((theme$ | async) === 'dark') {
                         <ng-icon name="lucideMoon" class="h-4 w-4" />
                         } @else {

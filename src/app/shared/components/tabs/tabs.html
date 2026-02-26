@@ -1,0 +1,60 @@
+@if (tabType === 1) {
+  <!-- Line tabs (shadcn line variant): underline indicator -->
+  <div class="tabs-container w-full">
+    <div class="border-b border-border">
+      <nav class="flex relative gap-5" aria-label="Tabs">
+        @for (tab of tabs; track tab.id; let i = $index) {
+          <button
+            #tabButton
+            type="button"
+            role="tab"
+            class="pb-2 text-sm font-medium cursor-pointer transition-colors duration-200 ease-in-out max-w-[90px] flex-1 flex items-center justify-center gap-1.5 text-muted-foreground hover:text-foreground"
+            [ngClass]="{
+              'text-primary!': tab.active
+            }"
+            (click)="selectTab(i)"
+            [attr.aria-selected]="tab.active"
+          >
+            @if (tab.active && tab.activeIcon) {
+              <ng-icon [name]="tab.activeIcon" class="size-4 shrink-0" />
+            } @else if (!tab.active && tab.inActiveIcon) {
+              <ng-icon [name]="tab.inActiveIcon" class="size-4 shrink-0" />
+            }
+            <span class="truncate">{{ tab.name }}</span>
+          </button>
+        }
+        <div
+          class="absolute bottom-0 h-[1.5px] bg-primary transition-all duration-300 ease-out"
+          [style.width.px]="indicatorWidth()"
+          [style.transform]="'translateX(' + indicatorPosition() + 'px)'"
+        ></div>
+      </nav>
+    </div>
+  </div>
+} @else if (tabType === 2) {
+  <!-- Block tabs (shadcn default variant): pill background -->
+  <div class="tabs-container max-w-max rounded-lg bg-muted p-1">
+    <nav class="flex relative gap-0.5" aria-label="Tabs">
+      @for (tab of tabs; track tab.id; let i = $index) {
+        <button
+          #tabButton
+          type="button"
+          role="tab"
+          class="flex-1 max-w-max py-1 px-3 text-sm font-medium cursor-pointer transition-colors duration-300 ease-in-out flex items-center justify-center gap-1.5 rounded-md text-muted-foreground hover:text-foreground"
+          [ngClass]="{
+            'text-foreground! bg-background shadow-sm': tab.active
+          }"
+          (click)="selectTab(i)"
+          [attr.aria-selected]="tab.active"
+        >
+          @if (tab.active && tab.activeIcon) {
+            <ng-icon [name]="tab.activeIcon" class="size-4 shrink-0" />
+          } @else if (!tab.active && tab.inActiveIcon) {
+            <ng-icon [name]="tab.inActiveIcon" class="size-4 shrink-0" />
+          }
+          <span class="truncate">{{ tab.name }}</span>
+        </button>
+      }
+    </nav>
+  </div>
+}
