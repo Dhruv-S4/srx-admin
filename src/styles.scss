@@ -111,67 +111,33 @@
   @apply px-1.5 text-muted-foreground text-sm;
 }
 
-.sr-uploader {
-  @apply w-full max-w-full rounded-xl;
-}
-.sr-uploader__title {
-  @apply mb-2 text-lg font-medium text-foreground;
-}
-.sr-uploader__dropzone {
-  @apply w-full rounded-xl border-2 border-dashed border-input bg-background p-6 transition-colors duration-200 hover:border-primary/60 hover:bg-accent/30 cursor-pointer;
+/* File uploader: only state/hover/icon SVG (rest is inline in component) */
+.sr-uploader__dropzone:hover {
+  border-color: color-mix(in oklch, var(--primary) 60%, transparent);
+  background: color-mix(in oklch, var(--accent) 30%, transparent);
 }
 .sr-uploader__dropzone--drag {
-  @apply border-primary bg-accent/40;
-}
-.sr-uploader__dropzone-inner {
-  @apply flex flex-col items-center justify-center gap-3 text-center;
-}
-/* Force icon size and color — ng-icon may not pass Tailwind to inner SVG */
-.sr-uploader__icon {
-  display: inline-flex;
-  width: 10rem;
-  height: 10rem;
-  color: var(--muted-foreground);
-  flex-shrink: 0;
+  border-color: var(--primary);
+  background: color-mix(in oklch, var(--accent) 40%, transparent);
 }
 .sr-uploader__icon svg {
   width: 100%;
   height: 100%;
 }
-.sr-uploader__hint {
-  font-size: 0.9375rem;
-  color: var(--muted-foreground);
+.sr-uploader__link:hover {
+  color: color-mix(in oklch, var(--primary) 80%, black);
 }
-.sr-uploader__file {
-  @apply flex items-center gap-2 text-sm text-foreground/80 max-w-full;
+.sr-uploader__btn--secondary:hover:not(:disabled) {
+  background: var(--accent);
 }
-.sr-uploader__file-label {
-  @apply shrink-0 text-muted-foreground;
+.sr-uploader__btn--secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
-.sr-uploader__file-name {
-  @apply truncate max-w-[420px];
+.sr-uploader__btn--primary:hover:not(:disabled) {
+  background: color-mix(in oklch, var(--primary) 90%, black);
 }
-.sr-uploader__error {
-  @apply text-sm text-destructive;
-}
-.sr-uploader__footer {
-  @apply mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between;
-}
-.sr-uploader__left {
-  @apply flex-1;
-}
-.sr-uploader__link {
-  @apply inline-flex items-center text-sm font-medium text-primary underline underline-offset-4 hover:text-primary/80;
-}
-.sr-uploader__actions {
-  @apply flex items-center gap-3;
-}
-.sr-uploader__btn {
-  @apply inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
-}
-.sr-uploader__btn--secondary {
-  @apply border border-input bg-background hover:bg-accent text-foreground;
-}
-.sr-uploader__btn--primary {
-  @apply bg-primary text-primary-foreground hover:bg-primary/90;
+.sr-uploader__btn--primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

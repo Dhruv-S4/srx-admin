@@ -1,8 +1,8 @@
-<section class="sr-uploader" role="region" aria-label="File upload">
-  <header class="sr-uploader__title">Upload New File</header>
+<section role="region" aria-label="File upload" class="w-full max-w-full rounded-xl">
+  <header class="mb-2 text-lg font-medium text-foreground">Upload New File</header>
 
   <div
-    class="sr-uploader__dropzone"
+    class="sr-uploader__dropzone w-full rounded-xl border-2 border-dashed border-input bg-background p-6 cursor-pointer transition-colors duration-200"
     [ngClass]="{ 'sr-uploader__dropzone--drag': isDragging() }"
     (dragover)="onDragOver($event)"
     (dragleave)="onDragLeave($event)"
@@ -14,37 +14,37 @@
     (keydown.space)="browseFiles()"
     [attr.aria-label]="'Drop zone for file upload. Accepted file types: ' + acceptedFileTypes + '. Maximum size: ' + maxFileSize + 'MB'"
   >
-    <div class="sr-uploader__dropzone-inner">
-      <ng-icon name="lucideCloudUpload" class="sr-uploader__icon" aria-hidden="true" />
-      <div class="sr-uploader__hint">Click or drag & drop your file here</div>
+    <div class="flex flex-col items-center justify-center gap-3 text-center">
+      <ng-icon name="lucideCloudUpload" class="sr-uploader__icon inline-flex size-12! shrink-0 text-muted-foreground! font-normal!" aria-hidden="true" />
+      <div class="text-[0.9375rem] text-muted-foreground">Click or drag & drop your file here</div>
 
       @if (selectedFile()) {
-        <div class="sr-uploader__file" role="status">
-          <span class="sr-uploader__file-label">Selected:</span>
-          <span class="sr-uploader__file-name" [title]="selectedFile()?.name">{{ selectedFile()?.name }}</span>
+        <div role="status" class="flex max-w-full items-center gap-2 text-sm text-foreground/80">
+          <span class="shrink-0 text-muted-foreground">Selected:</span>
+          <span [title]="selectedFile()?.name" class="max-w-[420px] truncate">{{ selectedFile()?.name }}</span>
         </div>
       }
 
       @if (errorMessage()) {
-        <div class="sr-uploader__error" role="alert">{{ errorMessage() }}</div>
+        <div role="alert" class="text-sm text-destructive">{{ errorMessage() }}</div>
       }
     </div>
   </div>
 
-  <footer class="sr-uploader__footer">
-    <div class="sr-uploader__left">
+  <footer class="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex-1">
       @if (sampleFileUrl) {
-        <button type="button" class="sr-uploader__link" (click)="downloadSampleFile()">Download sample file</button>
+        <button type="button" class="sr-uploader__link inline-flex border-none bg-transparent p-0 text-sm font-medium text-primary underline underline-offset-4 cursor-pointer" (click)="downloadSampleFile()">Download sample file</button>
       }
     </div>
 
-    <div class="sr-uploader__actions" role="group" aria-label="File upload actions">
-      <button type="button" class="sr-uploader__btn sr-uploader__btn--secondary" [disabled]="!selectedFile()" (click)="onCancel()">
+    <div role="group" aria-label="File upload actions" class="flex items-center gap-3">
+      <button type="button" class="sr-uploader__btn--secondary inline-flex h-9 cursor-pointer items-center justify-center rounded-md border border-input bg-background px-4 text-sm font-medium text-foreground transition-colors" [disabled]="!selectedFile()" (click)="onCancel()">
         Cancel
       </button>
       <button
         type="button"
-        class="sr-uploader__btn sr-uploader__btn--primary"
+        class="sr-uploader__btn--primary inline-flex h-9 cursor-pointer items-center justify-center rounded-md border-0 bg-primary px-4 text-sm font-medium text-primary-foreground transition-opacity"
         [disabled]="!selectedFile() || uploadDisabled"
         (click)="onUpload()"
       >
