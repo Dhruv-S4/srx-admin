@@ -2,31 +2,25 @@
   <header class="mb-2 text-lg font-medium text-foreground">Upload New File</header>
 
   <div
-    class="sr-uploader__dropzone w-full rounded-xl border-2 border-dashed border-input bg-background p-6 cursor-pointer transition-colors duration-200"
-    [ngClass]="{ 'sr-uploader__dropzone--drag': isDragging() }"
-    (dragover)="onDragOver($event)"
-    (dragleave)="onDragLeave($event)"
-    (drop)="onDrop($event)"
-    tabindex="0"
-    role="button"
-    (click)="browseFiles()"
-    (keydown.enter)="browseFiles()"
-    (keydown.space)="browseFiles()"
-    [attr.aria-label]="'Drop zone for file upload. Accepted file types: ' + acceptedFileTypes + '. Maximum size: ' + maxFileSize + 'MB'"
-  >
+    class="w-full rounded-xl border-2 border-dashed border-input bg-background p-6 cursor-pointer transition-colors duration-200 hover:border-primary/60 hover:bg-accent/30"
+    [ngClass]="{ 'border-primary bg-accent/40': isDragging() }" (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" tabindex="0" role="button" (click)="browseFiles()"
+    (keydown.enter)="browseFiles()" (keydown.space)="browseFiles()"
+    [attr.aria-label]="'Drop zone for file upload. Accepted file types: ' + acceptedFileTypes + '. Maximum size: ' + maxFileSize + 'MB'">
     <div class="flex flex-col items-center justify-center gap-3 text-center">
-      <ng-icon name="lucideCloudUpload" class="sr-uploader__icon inline-flex size-12! shrink-0 text-muted-foreground! font-normal!" aria-hidden="true" />
-      <div class="text-[0.9375rem] text-muted-foreground">Click or drag & drop your file here</div>
+      <ng-icon name="lucideCloudUpload"
+        class="uploader-icon inline-flex size-12! shrink-0 text-muted-foreground! font-normal!" aria-hidden="true" />
+      <div class="text-[0.9375rem] text-muted-foreground!">Click or drag & drop your file here</div>
 
       @if (selectedFile()) {
-        <div role="status" class="flex max-w-full items-center gap-2 text-sm text-foreground/80">
-          <span class="shrink-0 text-muted-foreground">Selected:</span>
-          <span [title]="selectedFile()?.name" class="max-w-[420px] truncate">{{ selectedFile()?.name }}</span>
-        </div>
+      <div role="status" class="flex max-w-full items-center gap-2 text-sm text-foreground/80">
+        <span class="shrink-0 text-muted-foreground">Selected:</span>
+        <span [title]="selectedFile()?.name" class="max-w-[420px] truncate">{{ selectedFile()?.name }}</span>
+      </div>
       }
 
       @if (errorMessage()) {
-        <div role="alert" class="text-sm text-destructive">{{ errorMessage() }}</div>
+      <div role="alert" class="text-sm text-destructive">{{ errorMessage() }}</div>
       }
     </div>
   </div>
@@ -34,23 +28,23 @@
   <footer class="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
     <div class="flex-1">
       @if (sampleFileUrl) {
-        <button type="button" class="sr-uploader__link inline-flex border-none bg-transparent p-0 text-sm font-medium text-primary underline underline-offset-4 cursor-pointer" (click)="downloadSampleFile()">Download sample file</button>
+      <button type="button"
+        class="inline-flex border-none bg-transparent p-0 text-sm font-medium text-primary underline underline-offset-4 cursor-pointer hover:text-primary/80"
+        (click)="downloadSampleFile()">Download sample file</button>
       }
     </div>
 
     <div role="group" aria-label="File upload actions" class="flex items-center gap-3">
-      <button type="button" class="sr-uploader__btn--secondary inline-flex h-9 cursor-pointer items-center justify-center rounded-md border border-input bg-background px-4 text-sm font-medium text-foreground transition-colors" [disabled]="!selectedFile()" (click)="onCancel()">
+      <button type="button"
+        class="inline-flex h-9 cursor-pointer items-center justify-center rounded-md border border-input bg-background px-4 text-sm font-medium text-foreground transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
+        [disabled]="!selectedFile()" (click)="onCancel()">
         Cancel
       </button>
-      <button
-        type="button"
-        class="sr-uploader__btn--primary inline-flex h-9 cursor-pointer items-center justify-center rounded-md border-0 bg-primary px-4 text-sm font-medium text-primary-foreground transition-opacity"
-        [disabled]="!selectedFile() || uploadDisabled"
-        (click)="onUpload()"
-      >
+      <button type="button"
+        class="inline-flex h-9 cursor-pointer items-center justify-center rounded-md border-0 bg-primary px-4 text-sm font-medium text-primary-foreground transition-opacity hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
+        [disabled]="!selectedFile() || uploadDisabled" (click)="onUpload()">
         Upload
       </button>
     </div>
   </footer>
 </section>
-
