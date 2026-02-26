@@ -14,7 +14,33 @@ import { SidebarService } from '../../services/sidebar.service';
 import { sidebarMenu } from '../../../core/utils/sidebar-menu';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { ObjectViewer } from '../object-viewer/object-viewer';
-import { lucideChevronDown, lucideGlobe } from '@ng-icons/lucide';
+import {
+  lucideBan,
+  lucideBarChart3,
+  lucideBuilding,
+  lucideCalculator,
+  lucideChevronDown,
+  lucideCircleX,
+  lucideCreditCard,
+  lucideDollarSign,
+  lucideDownload,
+  lucideFileCheck,
+  lucideFileSpreadsheet,
+  lucideFileText,
+  lucideList,
+  lucideReceipt,
+  lucideScale,
+  lucideToggleLeft,
+  lucideToggleRight,
+  lucideTrendingUp,
+  lucideTruck,
+  lucideUpload,
+  lucideUser,
+  lucideUsers,
+  lucideWrench,
+  lucideZap,
+  lucideQuote,
+} from '@ng-icons/lucide';
 import { USER_DATA } from '../../../core/models/common.model';
 
 @Component({
@@ -23,8 +49,31 @@ import { USER_DATA } from '../../../core/models/common.model';
   imports: [NgClass, RouterModule, NgIcon, AsyncPipe, ObjectViewer],
   providers: [
     provideIcons({
+      lucideBan,
+      lucideBarChart3,
+      lucideBuilding,
+      lucideCalculator,
       lucideChevronDown,
-      lucideGlobe,
+      lucideCircleX,
+      lucideCreditCard,
+      lucideDollarSign,
+      lucideDownload,
+      lucideFileCheck,
+      lucideFileSpreadsheet,
+      lucideFileText,
+      lucideList,
+      lucideReceipt,
+      lucideScale,
+      lucideToggleLeft,
+      lucideToggleRight,
+      lucideTrendingUp,
+      lucideTruck,
+      lucideUpload,
+      lucideUser,
+      lucideUsers,
+      lucideWrench,
+      lucideZap,
+      lucideQuote,
     }),
   ],
   templateUrl: './sidebar.html',
@@ -76,7 +125,8 @@ export class Sidebar {
   getSidebarMenu() {
     this.sidebarService.getSidebarMenu().subscribe({
       next: (menu: any) => {
-        this.navItems = this.filterMenuByPermissions(sidebarMenu, menu.data);
+        const permissions = menu?.data?.srx ?? menu?.data;
+        this.navItems = this.filterMenuByPermissions(sidebarMenu, permissions);
         this.sidebarService.setFilteredMenu(this.navItems);
         this.setActiveMenuFromRoute(this.router.url);
         this.cdr.detectChanges();
