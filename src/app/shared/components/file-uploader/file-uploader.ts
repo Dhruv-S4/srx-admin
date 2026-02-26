@@ -14,6 +14,8 @@ type FileType = string;
 })
 export class FileUploader implements OnChanges {
   @Input() sampleFileUrl?: string;
+  /** When true, "Download sample file" is always shown and click emits sampleDownloadRequested for parent to fetch URL via API */
+  @Input() sampleDownloadViaApi = false;
   @Input() acceptedFileTypes: FileType = '*';
   /** Max size in MB */
   @Input() maxFileSize = 5;
@@ -24,6 +26,7 @@ export class FileUploader implements OnChanges {
   @Output() fileSelected = new EventEmitter<File>();
   @Output() uploadClicked = new EventEmitter<File>();
   @Output() cancelClicked = new EventEmitter<void>();
+  @Output() sampleDownloadRequested = new EventEmitter<void>();
 
   readonly isDragging = signal(false);
   readonly selectedFile = signal<File | null>(null);
@@ -77,8 +80,13 @@ export class FileUploader implements OnChanges {
   }
 
   downloadSampleFile() {
-    if (!this.sampleFileUrl) return;
-    window.open(this.sampleFileUrl, '_blank');
+    if (this.sampleFileUrl) {
+      window.open(this.sampleFileUrl, '_blank');
+      return;
+    }
+    if (this.sampleDownloadViaApi) {
+      this.sampleDownloadRequested.emit();
+    }
   }
 
   onUpload() {

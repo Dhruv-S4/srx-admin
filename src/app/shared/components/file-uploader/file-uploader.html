@@ -27,7 +27,7 @@
 
   <footer class="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
     <div class="flex-1">
-      @if (sampleFileUrl) {
+      @if (sampleFileUrl || sampleDownloadViaApi) {
       <button type="button"
         class="inline-flex border-none bg-transparent p-0 text-sm font-medium text-primary underline underline-offset-4 cursor-pointer hover:text-primary/80"
         (click)="downloadSampleFile()">Download sample file</button>

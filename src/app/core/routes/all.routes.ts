@@ -24,4 +24,9 @@ export const allRoutes: Routes = [
         loadComponent: () =>
             import('../../features/ddp-charges/ddp-charges').then((c) => c.DdpCharges),
     },
+    {
+        path: 'master-awb-upload',
+        loadComponent: () =>
+            import('../../features/master-awb-upload/master-awb-upload').then((c) => c.MasterAwbUpload),
+    },
 ];

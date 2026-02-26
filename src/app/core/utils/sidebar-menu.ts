@@ -29,7 +29,7 @@ export const sidebarMenu: NavItem[] = [
     // { name: 'Manifest Escalation', path: '/manifest-escalation', key: 'mainfest_escalation', icon: 'lucideTruck' },
     // { name: 'MIS International Upload', path: '/wd-mis-cbt', key: 'sr_international_mis', icon: 'lucideFileSpreadsheet' },
     // { name: 'MIS Upload', path: '/wd-mis', key: 'wd_mis_upload', icon: 'lucideFileSpreadsheet' },
-    // { name: 'Master AWB Upload', path: '/mawb-upload', key: 'master_awb_upload', icon: 'lucideUpload' },
+    { name: 'Master AWB Upload', path: '/master-awb-upload', key: 'master_awb_upload', icon: 'lucideUpload' },
     // { name: 'PID Order Report', path: '/pid-order-report', key: 'pid_order_report', icon: 'lucideFileText' },
     // { name: 'Pickup Escalation', path: '/pickup-escalation', key: 'pickup_ids', icon: 'lucideTruck' },
     // { name: 'Pickup Generate Logs', path: '/pickup-generate-logs', key: 'pickup_generate_logs', icon: 'lucideFileText' },
