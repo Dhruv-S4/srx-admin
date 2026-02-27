@@ -20,6 +20,11 @@ export const allRoutes: Routes = [
             import('../../features/additional-b2b-billing/additional-b2b-billing').then((c) => c.AdditionalB2bBilling),
     },
     {
+        path: 'custom-order-pricing',
+        loadComponent: () =>
+            import('../../features/custom-order-pricing/custom-order-pricing').then((c) => c.CustomOrderPricing),
+    },
+    {
         path: 'courier-rate-card',
         loadComponent: () =>
             import('../../features/courier-rate-card/courier-rate-card').then((c) => c.CourierRateCard),

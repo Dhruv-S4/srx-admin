@@ -20,7 +20,7 @@ export type TooltipSide = 'top' | 'right' | 'bottom' | 'left';
   template: `
     <span
       #trigger
-      class="tooltip-trigger inline-flex"
+      class="tooltip-trigger inline-flex min-w-0 w-full max-w-full overflow-hidden"
       (mouseenter)="onMouseEnter()"
       (mouseleave)="onMouseLeave()"
       (focusin)="onFocus()"
@@ -33,6 +33,10 @@ export type TooltipSide = 'top' | 'right' | 'bottom' | 'left';
     `
       :host {
         display: inline-flex;
+        max-width: 100%;
+      }
+      :host(.block) {
+        display: block;
       }
       .tooltip-trigger:focus {
         outline: none;

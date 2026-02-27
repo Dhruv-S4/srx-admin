@@ -1,0 +1,160 @@
+<div class="flex flex-wrap items-center justify-between gap-4 pb-6">
+  <h1 class="page-title m-0">Custom Order Pricing</h1>
+  <div class="flex flex-wrap items-center gap-2">
+    <button
+      type="button"
+      class="inline-flex items-center justify-center gap-2 rounded-lg border border-input bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
+      (click)="downloadReport()"
+      [disabled]="loading()"
+    >
+      <ng-icon name="lucideDownload" class="size-4" />
+      Download
+    </button>
+    <button
+      type="button"
+      class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
+      (click)="goToCreateQuote()"
+    >
+      <ng-icon name="lucideFilePlus" class="size-4" />
+      Create Quote
+    </button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="grid grid-cols-4 gap-4">
+    <div class="flex flex-col">
+      <label class="mb-1 block text-sm font-medium text-foreground">Quote ID</label>
+      <input
+        type="text"
+        class="h-9 w-full rounded-lg border border-input bg-input/30 px-3 py-1.5 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-input focus:ring-2 focus:ring-ring"
+        placeholder="Search by Quote ID"
+        [ngModel]="searchByQuoteId()"
+        (ngModelChange)="searchByQuoteId.set($event)"
+        (keyup.enter)="searchBy()"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label class="mb-1 block text-sm font-medium text-foreground">Order ID</label>
+      <input
+        type="text"
+        class="h-9 w-full rounded-lg border border-input bg-input/30 px-3 py-1.5 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-input focus:ring-2 focus:ring-ring"
+        placeholder="Search by Order ID"
+        [ngModel]="searchByOrderId()"
+        (ngModelChange)="searchByOrderId.set($event)"
+        (keyup.enter)="searchBy()"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label class="mb-1 block text-sm font-medium text-foreground">Company ID</label>
+      <input
+        type="text"
+        class="h-9 w-full rounded-lg border border-input bg-input/30 px-3 py-1.5 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-input focus:ring-2 focus:ring-ring"
+        placeholder="Search by Company ID"
+        [ngModel]="searchByCompanyId()"
+        (ngModelChange)="searchByCompanyId.set($event)"
+        (keyup.enter)="searchBy()"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label class="mb-1 block text-sm font-medium text-foreground">AWB</label>
+      <input
+        type="text"
+        class="h-9 w-full rounded-lg border border-input bg-input/30 px-3 py-1.5 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-input focus:ring-2 focus:ring-ring"
+        placeholder="Search by AWB"
+        [ngModel]="searchByAwb()"
+        (ngModelChange)="searchByAwb.set($event)"
+        (keyup.enter)="searchBy()"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label class="mb-1 block text-sm font-medium text-foreground">Source</label>
+      <app-select
+        class="block w-full"
+        [options]="sourceOptions()"
+        [value]="source()"
+        placeholder="Source"
+        labelKey="label"
+        valueKey="value"
+        (selectionChange)="source.set($event); onFilterChange()"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label class="mb-1 block text-sm font-medium text-foreground">Quote Status</label>
+      <app-select
+        class="block w-full"
+        [options]="quoteStatusOptions()"
+        [value]="quoteStatus()"
+        placeholder="Quote Status"
+        labelKey="label"
+        valueKey="value"
+        (selectionChange)="quoteStatus.set($event); onFilterChange()"
+      />
+    </div>
+    <div class="flex flex-col">
+      <label class="mb-1 block text-sm font-medium text-foreground">KAM</label>
+      <app-select
+        class="block w-full"
+        [options]="kamOptions()"
+        [value]="selectedKam()"
+        placeholder="KAM"
+        labelKey="label"
+        valueKey="value"
+        (selectionChange)="selectedKam.set($event); onFilterChange()"
+      />
+    </div>
+  </div>
+</div>
+
+<div class="card mt-4 block">
+  @if (loading()) {
+    <div class="flex justify-center py-12">
+      <span class="inline-block size-8 animate-spin rounded-full border-2 border-primary border-t-transparent"></span>
+    </div>
+  } @else {
+    <app-table
+      [headers]="headers()"
+      [data]="tableData()"
+      [paginationRequired]="true"
+      [totalRecords]="totalRecords()"
+      [defaultPageSize]="pageSize()"
+      (pageChange)="onPageChange($event)"
+    >
+      <ng-template #rowTemplate let-row>
+        <td class="py-3.5 align-middle pl-6">
+          <button
+            type="button"
+            class="cursor-pointer text-left font-medium text-primary underline decoration-primary hover:no-underline"
+            (click)="goToEditQuote(row)"
+          >
+            {{ row.quoteId }}
+          </button>
+        </td>
+        <td class="py-3.5 align-middle whitespace-nowrap text-foreground">{{ row.companyId }}</td>
+        <td class="py-3.5 align-middle whitespace-nowrap text-foreground">{{ row.transportMode }}</td>
+        <td class="py-3.5 align-middle whitespace-nowrap text-foreground">{{ row.channelOrderId }}</td>
+        <td class="py-3.5 align-middle whitespace-nowrap text-foreground">{{ row.quoteCreatedAt }}</td>
+        <td class="py-3.5 align-middle text-foreground">
+          <div class="flex flex-col gap-0.5 text-sm">
+            <span><strong>Quote Status:</strong> {{ getQuoteStatusLabel(row.quoteStatus) }}</span>
+            <span><strong>Document Status:</strong> {{ getDocStatusLabel(row.documentStatus) }}</span>
+          </div>
+        </td>
+        <td class="py-3.5 align-middle text-foreground" [title]="row.adminRemark">
+          {{ getShipmentPurposeLabel(row.purposeOfShipment) }}
+        </td>
+        <td class="py-3.5 align-middle whitespace-nowrap text-foreground">{{ getSourceLabel(row.source) }}</td>
+        <td class="py-3.5 align-middle pr-6">
+          <button
+            type="button"
+            class="inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            (click)="goToEditQuote(row)"
+          >
+            <ng-icon name="lucidePencil" class="size-4" />
+            Edit Quote
+          </button>
+        </td>
+      </ng-template>
+    </app-table>
+  }
+</div>

@@ -7,7 +7,7 @@ export const sidebarMenu: NavItem[] = [
     { name: 'Bulk Upload Additional Billing', path: '/sr-awb-uploader', key: 'srawb_uploader_cargox', icon: 'lucideUpload' },
     // { name: 'Cancel AWB', path: '/awb-cancel', key: 'awb_cancel', icon: 'lucideBan' },
     // { name: 'Cancel Shipments', path: '/cancel-shipments', key: 'cancel_shipment', icon: 'lucideBan' },
-    // { name: 'CargoX Custom Order Pricing', path: '/custom-order-pricing', key: 'cargox_custom_order_pricing', icon: 'lucideCalculator' },
+    { name: 'CargoX Custom Order Pricing', path: '/custom-order-pricing', key: 'cargox_custom_order_pricing', icon: 'lucideCalculator' },
     // { name: 'Close RTO Dispute', path: '/close-rto-dispute', key: 'close_rto_dispute', icon: 'lucideCircleX' },
     // { name: 'Cost Uploader', path: '/cost-uploader', key: 'cost_uploader', icon: 'lucideUpload' },
     // { name: 'Courier Management', path: '/courier-management', key: 'courier_management', icon: 'lucideBuilding' },
