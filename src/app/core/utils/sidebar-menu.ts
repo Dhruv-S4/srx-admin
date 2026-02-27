@@ -1,10 +1,10 @@
 import { NavItem } from '../models/sidebar.model';
 
 export const sidebarMenu: NavItem[] = [
-    // { name: 'Additional B2B Billing', path: '/custom-final-billing', key: 'cargox_custom_final_billing', icon: 'lucideReceipt' },
+    { name: 'Additional B2B Billing', path: '/additional-b2b-billing', key: 'cargox_custom_final_billing', icon: 'lucideReceipt' },
     // { name: 'AWB Order Report', path: '/awb-order-report', key: 'awb_order_report', icon: 'lucideFileText' },
     // { name: 'B2B Rates Upload', path: '/upload-heavy-bulky', key: 'heavy_bulky_uploads', icon: 'lucideUpload' },
-    // { name: 'Bulk Upload Additional Billing', path: '/sr-awb-uploader-cargo-int', key: 'srawb_uploader_cargox', icon: 'lucideUpload' },
+    { name: 'Bulk Upload Additional Billing', path: '/sr-awb-uploader', key: 'srawb_uploader_cargox', icon: 'lucideUpload' },
     // { name: 'Cancel AWB', path: '/awb-cancel', key: 'awb_cancel', icon: 'lucideBan' },
     // { name: 'Cancel Shipments', path: '/cancel-shipments', key: 'cancel_shipment', icon: 'lucideBan' },
     // { name: 'CargoX Custom Order Pricing', path: '/custom-order-pricing', key: 'cargox_custom_order_pricing', icon: 'lucideCalculator' },

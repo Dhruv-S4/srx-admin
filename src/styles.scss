@@ -28,6 +28,17 @@
   @apply text-2xl font-semibold text-foreground mb-6;
 }
 
+/* Remove up/down spinner buttons from number inputs (global) */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 /* Select dropdown animations (used by app-select) */
 @keyframes sr-select-open {
   from {

@@ -1,0 +1,185 @@
+<div class="flex flex-wrap items-center justify-between gap-4 pb-6">
+  <h1 class="page-title m-0">Additional B2B Billing</h1>
+  <button
+    type="button"
+    class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
+    (click)="goToAwbUploader()"
+  >
+    <ng-icon name="lucideUpload" class="size-4" />
+    SR AWB Uploader
+  </button>
+</div>
+
+<div class="card">
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium text-foreground">AWB Number <span class="text-destructive">*</span></label>
+      <div class="flex gap-2">
+        <input
+          type="text"
+          class="h-9 w-full rounded-lg border border-input bg-input/30 px-3 py-1.5 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-input focus:ring-2 focus:ring-ring"
+          placeholder="Search by AWB"
+          [ngModel]="searchByAwbNo()"
+          (ngModelChange)="searchByAwbNo.set($event)"
+          (keyup.enter)="searchBy()"
+        />
+        <button
+          type="button"
+          class="inline-flex shrink-0 items-center justify-center rounded-lg border border-input bg-secondary px-3 py-2 text-secondary-foreground transition-colors hover:bg-secondary/80"
+          (click)="searchBy()"
+          [disabled]="loading()"
+        >
+          <ng-icon name="lucideSearch" class="size-5" />
+        </button>
+      </div>
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium text-foreground">Company Id</label>
+      <input
+        type="text"
+        readonly
+        class="h-9 w-full rounded-lg border border-input bg-muted/50 px-3 py-1.5 text-sm text-foreground read-only:opacity-80"
+        [ngModel]="companyId()"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium text-foreground">Company Name</label>
+      <input
+        type="text"
+        readonly
+        class="h-9 w-full rounded-lg border border-input bg-muted/50 px-3 py-1.5 text-sm text-foreground read-only:opacity-80"
+        [ngModel]="companyName()"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium text-foreground">Order Id</label>
+      <input
+        type="text"
+        readonly
+        class="h-9 w-full rounded-lg border border-input bg-muted/50 px-3 py-1.5 text-sm text-foreground read-only:opacity-80"
+        [ngModel]="orderId()"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium text-foreground">Applied Weight</label>
+      <input
+        type="number"
+        readonly
+        class="h-9 w-full rounded-lg border border-input bg-muted/50 px-3 py-1.5 text-sm text-foreground read-only:opacity-80"
+        [ngModel]="appliedWeight()"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium text-foreground">Applied Weight Amount</label>
+      <input
+        type="number"
+        readonly
+        class="h-9 w-full rounded-lg border border-input bg-muted/50 px-3 py-1.5 text-sm text-foreground read-only:opacity-80"
+        [ngModel]="appliedWeightAmount()"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium text-foreground">Final Charge Weight (in kg)</label>
+      <input
+        type="text"
+        readonly
+        class="h-9 w-full rounded-lg border border-input bg-muted/50 px-3 py-1.5 text-sm text-foreground read-only:opacity-80"
+        [ngModel]="chargedWeight()"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label class="text-sm font-medium text-foreground">Final Charge Amount</label>
+      <input
+        type="text"
+        readonly
+        class="h-9 w-full rounded-lg border border-input bg-muted/50 px-3 py-1.5 text-sm text-foreground read-only:opacity-80"
+        [value]="calculateTotalAdditionChargeForVCN() ?? ''"
+      />
+    </div>
+  </div>
+</div>
+
+@if (companyId()) {
+  <div class="card mt-4 border-b border-border pb-6">
+    <h2 class="mb-4 text-base font-semibold text-foreground">Additional Charges</h2>
+    <div class="flex flex-col gap-4">
+      @for (row of postAdditionalChargeArray(); track $index) {
+        <div class="flex flex-wrap items-end gap-4 rounded-lg border border-border bg-card p-4">
+          <div class="min-w-[200px] flex-1 basis-48 flex-col gap-2 md:flex-none">
+            <label class="mb-1 block text-sm font-medium text-foreground">Charge Type</label>
+            <app-select
+              class="block w-full"
+              [options]="chargeSelectOptions"
+              [value]="row.name"
+              placeholder="-- Select a Charge --"
+              labelKey="label"
+              valueKey="value"
+              [disabled]="disableSubmit()"
+              (selectionChange)="onChargeTypeChange($event, $index)"
+            />
+          </div>
+          <div class="min-w-[120px] flex-1 basis-32 flex-col gap-2 md:flex-none">
+            <label class="mb-1 block text-sm font-medium text-foreground">Charges inc of GST</label>
+            <input
+              type="number"
+              min="0"
+              class="h-9 w-full rounded-lg border border-input bg-input/30 px-3 py-1.5 text-sm text-foreground outline-none focus:border-input focus:ring-2 focus:ring-ring disabled:bg-muted disabled:opacity-70"
+              [ngModel]="row.value"
+              (ngModelChange)="updateChargeValue($index, $event)"
+              [disabled]="!isChargeDeducted() || disableSubmit()"
+            />
+          </div>
+          <div class="flex shrink-0 items-end">
+            <button
+              type="button"
+              class="inline-flex items-center justify-center rounded p-2 text-destructive transition-colors hover:bg-destructive/10"
+              (click)="removeAdditionalChargesRow($index)"
+              [disabled]="disableSubmit()"
+              title="Remove charge"
+            >
+              <ng-icon name="lucideTrash2" class="size-5" />
+            </button>
+          </div>
+        </div>
+      }
+      <div>
+        <button
+          type="button"
+          class="inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
+          (click)="addAdditionalChargesRow()"
+          [disabled]="!isChargeDeducted() || disableSubmit()"
+        >
+          + Add Additional charges
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<div class="card mt-4">
+  <label class="flex cursor-pointer items-start gap-3">
+    <input
+      type="checkbox"
+      class="mt-1 h-4 w-4 rounded border-input text-primary focus:ring-ring"
+      [ngModel]="checked()"
+      (ngModelChange)="checked.set($event)"
+    />
+    <span class="text-sm text-foreground">
+      I agree that the billing details above are true to my knowledge and no further charges would be required for the AWB.
+    </span>
+  </label>
+</div>
+
+<div class="mt-6 flex justify-center">
+  <button
+    type="button"
+    class="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:opacity-50"
+    [disabled]="!isChargeDeducted() || disableSubmit() || loading()"
+    (click)="submitHeavyBulkyBillingForm()"
+  >
+    @if (loading()) {
+      <span class="inline-block size-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent"></span>
+    }
+    Approve Billing
+  </button>
+</div>

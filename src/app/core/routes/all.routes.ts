@@ -15,6 +15,11 @@ export const allRoutes: Routes = [
         loadComponent: () => import('../../features/profile/profile').then((c) => c.Profile),
     },
     {
+        path: 'additional-b2b-billing',
+        loadComponent: () =>
+            import('../../features/additional-b2b-billing/additional-b2b-billing').then((c) => c.AdditionalB2bBilling),
+    },
+    {
         path: 'courier-rate-card',
         loadComponent: () =>
             import('../../features/courier-rate-card/courier-rate-card').then((c) => c.CourierRateCard),
@@ -28,5 +33,10 @@ export const allRoutes: Routes = [
         path: 'master-awb-upload',
         loadComponent: () =>
             import('../../features/master-awb-upload/master-awb-upload').then((c) => c.MasterAwbUpload),
+    },
+    {
+        path: 'sr-awb-uploader',
+        loadComponent: () =>
+            import('../../features/sr-awb-uploader/sr-awb-uploader').then((c) => c.SrAwbUploader),
     },
 ];
