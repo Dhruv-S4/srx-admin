@@ -28,17 +28,19 @@
             <li>
                 @if (nav.subItems) {
                 <!-- Collapsible Item -->
-                <button (click)="toggleSubmenu('main', i)"
-                    class="flex w-full items-center gap-3 rounded-md px-2 py-2 text-sm font-medium hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors group outline-none ring-sidebar-ring focus-visible:ring-1"
-                    [class.bg-sidebar-accent]="openSubmenu === 'main-' + i"
-                    [class.text-sidebar-accent-foreground]="openSubmenu === 'main-' + i">
-                    <ng-icon [name]="nav.icon" class="size-4 shrink-0" />
-                    @if ((isExpanded$ | async) || (isHovered$ | async) || (isMobileOpen$ | async)) {
-                    <span class="flex-1 text-left truncate">{{ nav.name }}</span>
-                    <ng-icon name="lucideChevronDown" class="size-4 transition-transform duration-200"
-                        [class.rotate-180]="openSubmenu === 'main-' + i" />
-                    }
-                </button>
+                <app-tooltip [content]="nav.name" side="right">
+                    <button (click)="toggleSubmenu('main', i)"
+                        class="flex w-full items-center gap-3 rounded-md px-2 py-2 text-sm font-medium hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors group outline-none ring-sidebar-ring focus-visible:ring-1"
+                        [class.bg-sidebar-accent]="openSubmenu === 'main-' + i"
+                        [class.text-sidebar-accent-foreground]="openSubmenu === 'main-' + i">
+                        <ng-icon [name]="nav.icon" class="size-4 shrink-0" />
+                        @if ((isExpanded$ | async) || (isHovered$ | async) || (isMobileOpen$ | async)) {
+                        <span class="flex-1 text-left truncate">{{ nav.name }}</span>
+                        <ng-icon name="lucideChevronDown" class="size-4 transition-transform duration-200"
+                            [class.rotate-180]="openSubmenu === 'main-' + i" />
+                        }
+                    </button>
+                </app-tooltip>
 
                 <!-- Submenu -->
                 <div class="overflow-hidden transition-all duration-300" [id]="'main-' + i" [style.height]="
@@ -60,19 +62,20 @@
                 } @else {
                 <!-- Standard Link -->
                 @if (nav.path) {
-                <a [routerLink]="nav.path" (click)="onSubmenuClick()"
-                    class="flex items-center gap-3 rounded-md px-2 py-2 text-sm font-medium hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors relative group outline-none ring-sidebar-ring focus-visible:ring-1"
-                    [class.bg-primary]="isActive(nav.path)"
-                    [class.text-primary-foreground]="isActive(nav.path)"
-                    [title]="!((isExpanded$ | async) || (isHovered$ | async) || (isMobileOpen$ | async)) ? nav.name : ''">
-                    <ng-icon [name]="nav.icon" class="size-4 shrink-0" />
-                    @if ((isExpanded$ | async) || (isHovered$ | async) || (isMobileOpen$ | async)) {
-                    <span class="truncate">{{ nav.name }}</span>
-                    @if (nav.new) {
-                    <span class="ml-auto text-xs font-semibold text-sidebar-primary">New</span>
-                    }
-                    }
-                </a>
+                <app-tooltip [content]="nav.name" side="top">
+                    <a [routerLink]="nav.path" (click)="onSubmenuClick()"
+                        class="flex items-center gap-3 rounded-md px-2 py-2 text-sm font-medium hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors relative group outline-none ring-sidebar-ring focus-visible:ring-1"
+                        [class.bg-primary]="isActive(nav.path)"
+                        [class.text-primary-foreground]="isActive(nav.path)">
+                        <ng-icon [name]="nav.icon" class="size-4 shrink-0" />
+                        @if ((isExpanded$ | async) || (isHovered$ | async) || (isMobileOpen$ | async)) {
+                        <span class="truncate">{{ nav.name }}</span>
+                        @if (nav.new) {
+                        <span class="ml-auto text-xs font-semibold text-sidebar-primary">New</span>
+                        }
+                        }
+                    </a>
+                </app-tooltip>
                 }
                 }
             </li>

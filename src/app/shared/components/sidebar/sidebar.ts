@@ -14,6 +14,7 @@ import { SidebarService } from '../../services/sidebar.service';
 import { sidebarMenu } from '../../../core/utils/sidebar-menu';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { ObjectViewer } from '../object-viewer/object-viewer';
+import { TooltipComponent } from '../tooltip/tooltip';
 import {
   lucideBan,
   lucideBarChart3,
@@ -46,7 +47,7 @@ import { USER_DATA } from '../../../core/models/common.model';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [NgClass, RouterModule, NgIcon, AsyncPipe, ObjectViewer],
+  imports: [NgClass, RouterModule, NgIcon, AsyncPipe, ObjectViewer, TooltipComponent],
   providers: [
     provideIcons({
       lucideBan,
